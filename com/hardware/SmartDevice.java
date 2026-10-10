@@ -3,14 +3,18 @@ public class SmartDevice{
     private String deviceToken="oi boy";
     String calibrationCode="its a code only for packages ";
     protected int firmwareVersion=1234;
-
+    protected void displaySpecs(){
+            System.out.println("hardware spec: Standard chipset v1");
+    }
     protected class InternalHardwareSpecs{
         public InternalHardwareSpecs(){
             
         }
-        public void displaySpecs(){
-            System.out.println("hardware spec: Standard chipset v1");
+        
+        public void firmware(){
+            System.out.println(firmwareVersion);
         }
+        
     }
     public void showInternalDetails(){
         System.out.println("privateToken:"+deviceToken);

@@ -4,6 +4,7 @@ public class SecurityCamera extends SmartDevice{
     public void testAccess(){
         System.out.println("Accessing parent protected firmware: "+ firmwareVersion);
         InternalHardwareSpecs specs=new InternalHardwareSpecs();
-        specs.displaySpecs();
+        specs.firmware();
+        displaySpecs();
     }
 }
