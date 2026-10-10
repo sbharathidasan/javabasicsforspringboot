@@ -1,0 +1,55 @@
+Here is a complete, structured reference note summarizing everything you have tested, analyzed, and proven through your own hands-on experiments.
+
+---
+
+## 📌 Java Access Modifiers: The Complete Cheat Sheet
+
+### 1. The Core 4 Access Modifiers
+
+| Modifier | Same Class | Same Package | Subclass (Different Package) via Inheritance (`this`) | Subclass (Different Package) via Dot Operator (`obj.member`) | World / Unrelated Package |
+| --- | --- | --- | --- | --- | --- |
+| **`public`** | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes |
+| **`protected`** | ✅ Yes | ✅ Yes | ✅ Yes | ❌ **Blocked** | ❌ No |
+| **`default`** *(no keyword)* | ✅ Yes | ✅ Yes | ❌ **Blocked** | ❌ **Blocked** | ❌ No |
+| **`private`** | ✅ Yes | ❌ No | ❌ No | ❌ No | ❌ No |
+
+---
+
+### 2. Class Level Rules
+
+* **Top-Level Classes:** Can **only** be declared as `public` or `default` (package-private). Top-level classes cannot be `private` or `protected`.
+* **Nested / Inner Classes:** Can use **all four modifiers** (`public`, `protected`, `default`, `private`) because they reside within the scope of an outer class.
+* **Self-Inheritance:** A class cannot extend itself (`class A extends A` is illegal).
+
+---
+
+### 3. Subclass Inheritance vs. Dot-Operator (`.`) Access Across Packages
+
+This is the key architectural rule you verified in your code tests:
+
+* **Direct Inheritance (`this`):** When a subclass in package `B` extends a superclass in package `A`, it directly inherits all `protected` variables and methods. You can call them directly inside the subclass methods (e.g., `System.out.println(health)`).
+* **The Dot-Operator Wall (`obj.member`):** Reaching across package boundaries using an object reference with a dot operator on a `protected` member will fail (e.g., `Warrior hero = new Warrior(); hero.health;` or calling a `protected` method on a nested class instance like `specs.displaySpecs()` from another package).
+
+
+* **The Fix:** If an inner helper method or nested class member needs to be called via an object instance across packages, that specific member must be marked **`public`**.
+
+
+
+---
+
+### 4. Package Boundaries & Default Access
+
+* When no access modifier is specified, it becomes **`default`** (package-private).
+* Default members are completely invisible outside their package. Even if a class in another package extends the outer class, it will get a compilation error (e.g., `entityName cannot be resolved to a variable` / `field is not visible`).
+
+
+
+---
+
+### 5. Advanced Rules to Remember
+
+1. **Method Overriding Rule:** An overriding method in a subclass cannot reduce the visibility of the parent method. (e.g., Overriding a `protected` method requires keeping it `protected` or making it `public`).
+2. **Interface Members:** All methods declared inside an `interface` are implicitly `public`. Implementing classes must implement them as `public`.
+3. **Private Constructors:** A class can be `public` while having a `private` constructor to control or restrict instantiation (such as in Singleton patterns).
+
+---
