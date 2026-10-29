@@ -53,3 +53,41 @@ This is the key architectural rule you verified in your code tests:
 3. **Private Constructors:** A class can be `public` while having a `private` constructor to control or restrict instantiation (such as in Singleton patterns).
 
 ---
+
+
+---
+date (29-10-2026)
+# 📚 Java Advanced OOP & Architecture Study Notes
+
+## 1. The `static` Keyword & Nested Classes
+
+* **What `static` means for a class:** A `static` nested class is an independent blueprint. It lives inside an outer class for organizational purposes, but **does not** require an outer class object to exist.
+* **Non-Static vs. Static Inner Classes:**
+* **Non-Static:** Tightly bound to a parent object. Every inner object holds a **hidden reference** to the outer object that created it. (Risk of memory leaks if kept alive too long).
+* **Static Nested:** Completely independent. No hidden reference, safer for memory, and clean to pass around.
+
+
+* **Instantiation Syntax:**
+* Non-Static: `OuterClass.InnerClass obj = outerObject.new InnerClass();`
+* Static: `OuterClass.InnerClass obj = new OuterClass.InnerClass();`
+
+
+
+## 2. Real-World Production Pattern: The Builder Pattern
+
+* **Use Case:** Constructing complex objects with many optional fields (like an `Order` or `Product` in an e-commerce app) cleanly and immutably.
+* **Why Static?** The Builder class is implemented as a `static` nested class so it can be invoked directly (e.g., `new Order.Builder()`) without needing an `Order` instance to exist first.
+
+## 3. Upcasting vs. Downcasting
+
+* **Upcasting (Child $\rightarrow$ Parent):**
+* Treating a child object as its parent type (e.g., `Animal a = new dog();`).
+* **Safety:** Automatic and 100% safe because every child *is-an* instance of its parent.
+* **Use Case:** Core of polymorphism—allows universal flexibility when passing objects into methods or lists.
+
+
+* **Downcasting (Parent $\rightarrow$ Child):**
+* Forcing a parent reference back into a specific child type (e.g., `dog d = (dog) a;`).
+* **Safety:** Manual and risky. It **requires an upcast to have happened first**, or Java will crash your program at runtime with a `ClassCastException`.
+* **Use Case:** Unlocking child-specific methods when a generic system hands you a parent reference.
+
