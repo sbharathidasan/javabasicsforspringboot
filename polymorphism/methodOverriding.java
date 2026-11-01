@@ -40,6 +40,8 @@ public class methodOverriding{
             dog.speak();
             methodOverriding.Animal tiger=mo.new tiger();
             tiger.speak();
+            methodOverriding.tiger tig=(methodOverriding.tiger)tiger;
+            tig.type();
         }
         
     }
